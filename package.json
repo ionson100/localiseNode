@@ -2,6 +2,10 @@
   "name": "localisenode",
   "version": "0.0.0",
   "private": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "start": "node ./bin/www",
     "startweb": "npm start --prefix client",
