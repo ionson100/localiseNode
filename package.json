@@ -11,9 +11,7 @@
     "startweb": "npm start --prefix client",
     "publich": "npm publish.npm --prefix client"
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

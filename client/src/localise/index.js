@@ -1,16 +1,11 @@
 function is_server() {
     return ! (typeof window != 'undefined' && window.document);
 }
-
 class Localise{
-
-
-    constructor({def,path,calback,languageTranslation}) {
+    constructor({def,path,callback,cookiesName}) {
         this._def = def;
-        this._calback = calback;
-        this._languageTranslation="LanguageTranslation"
-
-
+        this._callback = callback;
+        this._languageTranslation=cookiesName
         this._path = path;// папка или файл с локализованным json
         this.map=new Map();// словарь трансляции
         this.init();
@@ -27,7 +22,6 @@ class Localise{
                     }else{
                         return vd;
                     }
-
                 }else{// ключа нет в словаре
                     return v;
                 }
@@ -37,8 +31,6 @@ class Localise{
         }catch (ex){
           console.error(`Ошибка при поиске значения локализации: ${ex}`)
         }
-
-
     }
     init(){
         if(this._path===undefined){
@@ -70,12 +62,10 @@ class Localise{
                             }
                         });
                     }
-
                 })
             }catch (exception){
               console.error(`Init server localise error: ${exception.trace}`)
             }
-
         }else{
            myFetchLocale(this._path).then(value => {
                Array.from(value).map((v)=>{
@@ -87,13 +77,12 @@ class Localise{
                    }
                    console.log(v.key.toLowerCase());
                })
-
                console.log("map  ",this.map)
            }).catch(error => {
                console.error(error);
            }).finally(() => {
-               if(this._calback){
-                   this._calback();
+               if(this._callback){
+                   this._callback();
                }
            })
         }
@@ -102,20 +91,15 @@ class Localise{
 async function myFetchLocale(path) {
     const response = await fetch(path);
     const body = await response.json();
-
     if (response.status !== 200) {
          throw (`Загрузка локализации на клиенте ${body.message}`)
-
     }
     console.log(body)
         return body;
-
-
 }
 function builderMap(fs,file,map){
     fs.readFile(file, "utf8",
         function(error,data){
-
             if(error) {
                 console.log(` Ошибка Асинхронное чтение файла ${data}  ${error}`);
             }else{
@@ -134,18 +118,30 @@ function builderMap(fs,file,map){
                     console.log(` Ошибка Преобразования в json ${file}  ${error}`);
                 }
             }
-
         });
 }
 
 let loc
-exports.configLocale=function ({def,path,callback: callback}){
-     loc = new Localise({def:def,path:path,calback:callback});
+/**
+ * регистраия параметров транслятора
+ * @def {sting} язык по умолчанию
+ * @path {string} путь к файлу или директории с файлами json
+ * @callback {function} функция обратного вызова, срабатывает после инициализаии словаря
+ * @cookiesName {string} названия куки
+ */
+exports.configLocale=function ({def,path,callback: callback,cookiesName}){
+     loc = new Localise({def:def,path:path,callback:callback,cookiesName});
 }
+/**
+ *
+ * @key {string} ключ для перевода
+ * @lan {string} язык перевода, при отсутствии - язык по умолчанию
+ * @returns {string}
+ */
 exports.get=function (key,lan){
     return loc.get(key,lan)
 }
-exports.languageTranslation=()=>{ return loc._languageTranslation;}
+exports.cookiesName=()=>{ return loc._languageTranslation;}
 
 
 

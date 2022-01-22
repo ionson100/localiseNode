@@ -2,12 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import React, {useState} from "react";
 import {get} from './localise/index'
-import {languageTranslation} from './localise/index'
+import {cookiesName} from './localise/index'
 import {useCookies} from "react-cookie";
 
 function App() {
-  const [cookies, setCookie] = useCookies([languageTranslation()]);
-  let l=cookies[languageTranslation()];
+  const [cookies, setCookie] = useCookies([cookiesName()]);
+  let l=cookies[cookiesName()];
   if(l===undefined){
     l="ru"
   }
@@ -19,7 +19,7 @@ function App() {
     const s=event.target.value;
     setLanq(s);
     console.log("###",s)
-    setCookie(languageTranslation(), s, { path: '/' });
+    setCookie(cookiesName(), s, { path: '/' });
 
   }
 

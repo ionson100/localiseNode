@@ -4,18 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {configLocale} from './localise/index'
-import {CookiesProvider} from "react-cookie";
 
-configLocale({def:"ru",path:"/localise/localise.json",callback:call})
+
+let value = ('; '+document.cookie).split(`; assa=`).pop().split(';')[0];
+if(value===undefined){
+    value="ru"
+}
+
+configLocale({def:value,path:"/localise/localise.json",callback:call,cookiesName:"assa"})
 
 
 function call(){
     ReactDOM.render(
         <React.StrictMode>
-
                 <App />
-
-
         </React.StrictMode>,
         document.getElementById('root')
     );

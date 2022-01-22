@@ -1,12 +1,14 @@
-# Getting Started with Create React App
+# механизм локализации audio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+установка 
+``
+npm install https://github.com/ionson100/localisenode
+``
 
-## Available Scripts
+Работает на клиенте и  сервере
 
-In the project directory, you can run:
 
-### `npm start`
+### Использование
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
