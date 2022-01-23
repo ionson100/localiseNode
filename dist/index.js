@@ -14,20 +14,20 @@ function is_server() {
   return !(typeof window != 'undefined' && window.document);
 }
 
-var _cookiesName;
+var _cookieName;
 
 var Localise = /*#__PURE__*/function () {
   function Localise(_ref) {
     var def = _ref.def,
         path = _ref.path,
         callback = _ref.callback,
-        cookiesName = _ref.cookiesName;
+        cookieName = _ref.cookieName;
 
     _classCallCheck(this, Localise);
 
     this._def = def;
     this._callback = callback;
-    _cookiesName = cookiesName;
+    _cookieName = cookieName;
     this._path = path; // папка или файл с локализованным json
 
     this.map = new Map(); // словарь трансляции
@@ -215,19 +215,19 @@ var loc;
  * @def {sting} язык по умолчанию
  * @path {string} путь к файлу или директории с файлами json
  * @callback {function} функция обратного вызова, срабатывает после инициализаии словаря
- * @cookiesName {string} названия куки
+ * @cookieName {string} названия куки
  */
 
 exports.configLocale = function (_ref2) {
   var def = _ref2.def,
       path = _ref2.path,
       callback = _ref2.callback,
-      cookiesName = _ref2.cookiesName;
+      cookieName = _ref2.cookieName;
   loc = new Localise({
     def: def,
     path: path,
     callback: callback,
-    cookiesName: cookiesName
+    cookieName: cookieName
   });
 };
 /**
@@ -242,6 +242,6 @@ exports.get = function (key, lan) {
   return loc.get(key, lan);
 };
 
-exports.cookiesName = function () {
-  return _cookiesName;
+exports.cookieName = function () {
+  return _cookieName;
 };

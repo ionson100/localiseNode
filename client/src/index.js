@@ -11,7 +11,7 @@ if(value===undefined){
     value="ru"
 }
 
-configLocale({def:value,path:"/localise/localise.json",callback:call,cookiesName:"assa"})
+configLocale({def:value,path:"/localise/localise.json",callback:call,cookieName:"assa"})
 
 
 function call(){

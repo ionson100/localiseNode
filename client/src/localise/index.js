@@ -1,12 +1,12 @@
 function is_server() {
     return ! (typeof window != 'undefined' && window.document);
 }
-let _cookiesName
+let _cookieName
 class Localise{
-    constructor({def,path,callback,cookiesName}) {
+    constructor({def,path,callback,cookieName}) {
         this._def = def;
         this._callback = callback;
-        _cookiesName=cookiesName
+        _cookieName=cookieName
         this._path = path;// папка или файл с локализованным json
         this.map=new Map();// словарь трансляции
         this.init();
@@ -128,10 +128,10 @@ let loc
  * @def {sting} язык по умолчанию
  * @path {string} путь к файлу или директории с файлами json
  * @callback {function} функция обратного вызова, срабатывает после инициализаии словаря
- * @cookiesName {string} названия куки
+ * @cookieName {string} названия куки
  */
-exports.configLocale=function ({def,path,callback: callback,cookiesName}){
-     loc = new Localise({def:def,path:path,callback:callback,cookiesName});
+exports.configLocale=function ({def,path,callback: callback,cookieName: cookieName}){
+     loc = new Localise({def:def,path:path,callback:callback,cookieName: cookieName});
 }
 /**
  *
@@ -142,7 +142,7 @@ exports.configLocale=function ({def,path,callback: callback,cookiesName}){
 exports.get=function (key,lan){
     return loc.get(key,lan)
 }
-exports.cookiesName=()=>{ return _cookiesName;}
+exports.cookieName=()=>{ return _cookieName;}
 
 
 

@@ -9,6 +9,30 @@ npm install https://github.com/ionson100/localisenode
 
 
 ### Использование клиент 
+```javascript
+/**
+ * регистраия параметров транслятора
+ * @def {sting} язык по умолчанию
+ * @path {string} путь к файлу или директории с файлами json
+ * @callback {function} функция обратного вызова, срабатывает после инициализаии словаря
+ * @cookieName {string} названия куки
+ */
+exports.configLocale=function ({def,path,callback: callback,cookieName}){
+     loc = new Localise({def:def,path:path,callback:callback,cookieName});
+}
+/**
+ *
+ * @key {string} ключ для перевода
+ * @lan {string} язык перевода, при отсутствии - язык по умолчанию
+ * @returns {string}
+ */
+exports.get=function (key,lan){
+    return loc.get(key,lan)
+}
+```
+
+
+
 index.js
 
 ```javascript
@@ -20,7 +44,7 @@ if(value===undefined){
     value="ru"
 }
 
-configLocale({def:value,path:"/localise/localise.json",callback:call,cookiesName:language})
+configLocale({def:value,path:"/localise/localise.json",callback:call,cookieName:language})
 
 function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
@@ -42,12 +66,12 @@ app.js
 import logo from './logo.svg';
 import './App.css';
 import React, {useState} from "react";
-import {cookiesName,get} from 'localisenode/dist/index'
+import {cookieName,get} from 'localisenode/dist/index'
 import {useCookies} from "react-cookie";
 
 function App() {
-  const [cookies, setCookie] = useCookies([cookiesName()]);
-  let l=cookies[cookiesName()];
+  const [cookies, setCookie] = useCookies([cookieName()]);
+  let l=cookies[cookieName()];
   if(l===undefined){
     l="ru"
   }
@@ -57,7 +81,7 @@ function App() {
     const s=event.target.value;
     setLang(s);
     console.log("###",s)
-    setCookie(cookiesName(), s, { path: '/' });
+    setCookie(cookieName(), s, { path: '/' });
   }
   return (
       <div className="App">
