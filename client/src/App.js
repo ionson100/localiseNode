@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import React, {useState} from "react";
-import {get} from './localise/index'
-import {cookiesName} from './localise/index'
+
+import {cookiesName,get} from './localise/index'
 import {useCookies} from "react-cookie";
 
 function App() {

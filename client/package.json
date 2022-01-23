@@ -2,10 +2,10 @@
   "name": "localision",
   "version": "0.1.0",
   "private": false,
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "src/dist/index.js",
+  "module": "src/dist/index.js",
   "files": [
-    "dist",
+    "src/dist",
     "README.md"
   ],
   "babel": {

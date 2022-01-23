@@ -14,6 +14,8 @@ function is_server() {
   return !(typeof window != 'undefined' && window.document);
 }
 
+var _cookiesName;
+
 var Localise = /*#__PURE__*/function () {
   function Localise(_ref) {
     var def = _ref.def,
@@ -25,7 +27,7 @@ var Localise = /*#__PURE__*/function () {
 
     this._def = def;
     this._callback = callback;
-    this._languageTranslation = cookiesName;
+    _cookiesName = cookiesName;
     this._path = path; // папка или файл с локализованным json
 
     this.map = new Map(); // словарь трансляции
@@ -241,5 +243,5 @@ exports.get = function (key, lan) {
 };
 
 exports.cookiesName = function () {
-  return loc._languageTranslation;
+  return _cookiesName;
 };

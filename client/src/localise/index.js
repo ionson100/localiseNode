@@ -1,11 +1,12 @@
 function is_server() {
     return ! (typeof window != 'undefined' && window.document);
 }
+let _cookiesName
 class Localise{
     constructor({def,path,callback,cookiesName}) {
         this._def = def;
         this._callback = callback;
-        this._languageTranslation=cookiesName
+        _cookiesName=cookiesName
         this._path = path;// папка или файл с локализованным json
         this.map=new Map();// словарь трансляции
         this.init();
@@ -141,7 +142,7 @@ exports.configLocale=function ({def,path,callback: callback,cookiesName}){
 exports.get=function (key,lan){
     return loc.get(key,lan)
 }
-exports.cookiesName=()=>{ return loc._languageTranslation;}
+exports.cookiesName=()=>{ return _cookiesName;}
 
 
 
