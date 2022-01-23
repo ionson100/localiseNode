@@ -8,65 +8,94 @@ npm install https://github.com/ionson100/localisenode
 Работает на клиенте и  сервере
 
 
-### Использование
+### Использование клиент 
+index.js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```javascript
+import {configLocale} from 'localisenode/dist/index'
+const language='language' // название куки языка
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+let value = getCookie(language);
+if(value===undefined){
+    value="ru"
+}
 
-### `npm test`
+configLocale({def:value,path:"/localise/localise.json",callback:call,cookiesName:language})
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+function call(){// после создания словаря продолжаем визуализацию
+    ReactDOM.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+}
+```
+app.js
+```javascript
+import logo from './logo.svg';
+import './App.css';
+import React, {useState} from "react";
+import {cookiesName,get} from 'localisenode/dist/index'
+import {useCookies} from "react-cookie";
 
-### `npm run build`
+function App() {
+  const [cookies, setCookie] = useCookies([cookiesName()]);
+  let l=cookies[cookiesName()];
+  if(l===undefined){
+    l="ru"
+  }
+  const [lang, setLang] = useState(l);
+  
+  function change(event){
+    const s=event.target.value;
+    setLang(s);
+    console.log("###",s)
+    setCookie(cookiesName(), s, { path: '/' });
+  }
+  return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <p>{get("просто",lang)}</p>
+          <p>{get("Большой",lang)}</p>
+          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
+            Learn React
+          </a>
+          <p><select style={{fontSize:30,width:400}} size="3"   onChange={change} value={lang}>
+            <option disabled>Выберите язык</option>
+            <option value="ru">Русский</option>
+            <option  value="en">Английский</option>
+          </select></p>
+        </header>
+      </div>
+  );
+}
+export default App;
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### файл Json локализации
+```json
+[
+    {"key": "", "value": {"ru": "", "en": ""}},
+    {"key": "", "value": {"ru": "", "en": ""}},
+    {"key": "", "value": {"ru": "", "en": ""}},
+    {"key": "", "value": {"ru": "", "en": ""}},
+    {"key": "", "value": {"ru": "", "en": ""}},
+    {"key": "", "value": {"ru": "", "en": ""}},
+    {"key": "Просто", "value": {"ru": "Просто так", "en": "Simple"}},
+    {"key": "Большой", "value": {"ru": "Большой ION", "en": "Big ION"}}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+]
+```
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
