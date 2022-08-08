@@ -6,7 +6,7 @@ var lan=require("../client/src/localise/index")
 router.get('/', function(req, res, next) {
   const locale = req.headers["accept-language"];
   var lang = req.acceptsLanguages('fr', 'es', 'en',"ru");
-  res.render('index', { title: lan.get("Просто",lang) });
+  res.render('index', { title: lan.getCore("Просто",lang) });
 });
 
 module.exports = router;

@@ -123,9 +123,9 @@ var Localise = /*#__PURE__*/function () {
               _this.map.set(v.key.toLowerCase(), v.value);
             }
 
-           
+            console.log(v.key.toLowerCase());
           });
-         
+          console.log("map  ", _this.map);
         }).catch(function (error) {
           console.error(error);
         }).finally(function () {
@@ -170,7 +170,7 @@ function _myFetchLocale() {
             throw "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430 \u043B\u043E\u043A\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438 \u043D\u0430 \u043A\u043B\u0438\u0435\u043D\u0442\u0435 ".concat(body.message);
 
           case 8:
-           
+            console.log(body);
             return _context.abrupt("return", body);
 
           case 10:
@@ -239,6 +239,10 @@ exports.configLocale = function (_ref2) {
 
 
 exports.get = function (key, lan) {
+  return loc.get(key, lan);
+};
+
+exports.getCore = function (key, lan) {
   return loc.get(key, lan);
 };
 

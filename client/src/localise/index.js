@@ -142,6 +142,10 @@ exports.configLocale=function ({def,path,callback: callback,cookieName: cookieNa
 exports.get=function (key,lan){
     return loc.get(key,lan)
 }
+
+exports.getCore=function (key,lan){
+    return loc.get(key,lan)
+}
 exports.cookieName=()=>{ return _cookieName;}
 
 

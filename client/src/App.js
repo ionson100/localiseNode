@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React, {useState} from "react";
 
-import {cookieName,get} from './localise/index'
+import {cookieName,getCore} from './localise/index'
 import {useCookies} from "react-cookie";
 
 function App() {
@@ -31,8 +31,8 @@ function App() {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <p>{get("просто",lanq)}</p>
-          <p>{get("Большой",lanq)}</p>
+          <p>{getCore("просто",lanq)}</p>
+          <p>{getCore("Большой",lanq)}</p>
           <a
               className="App-link"
               href="https://reactjs.org"
